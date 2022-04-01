@@ -1,2 +1,8 @@
 doc/html
 doc/manifest.yaml
+*.a
+Makefile
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+filter_tests
