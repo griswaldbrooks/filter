@@ -1,6 +1,0 @@
-language: cpp
-compiler: gcc
-script:
-  - mkdir build
-  - cd build
-  - cmake .. && make

@@ -7,8 +7,6 @@ add_compile_options(-std=c++17 -Wall -Wextra -Werror -Wno-unused-parameter -Wno-
 find_package(GTest REQUIRED)
 include_directories(include ${GTEST_INCLUDE_DIRS})
 
-# add_library(${PROJECT_NAME} src/geometry.cpp)
-
 add_executable(${PROJECT_NAME}_tests
   test/linear_filter_tests.cpp
 	)
@@ -23,5 +21,4 @@ target_link_libraries(${PROJECT_NAME}_tests
   ${GTEST_LIBRARIES}
   gmock
   pthread
-  # gillwald_geometry
 	)
