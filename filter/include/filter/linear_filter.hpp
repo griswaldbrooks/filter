@@ -22,8 +22,8 @@ class linear_filter {
   linear_filter(std::vector<double> b, std::vector<double> a)
       : b_{std::move(b)},
         a_{std::move(a)},
-        y_(a_.size(), T{}),
-        x_(b_.size(), T{}) {
+        x_(b_.size(), T{}),
+        y_(a_.size(), T{}) {
     if (b_.size() != a_.size()) {
       throw std::length_error{"Coefficients must have same length"};
     }
@@ -31,6 +31,11 @@ class linear_filter {
       throw std::domain_error{"First element of output coefficients must be 1"};
     }
   }
+
+  // \brief Finite impulse response constructor
+  linear_filter(std::vector<double> b)
+      : b_{std::move(b)},
+        x_(b_.size(), T{}) {}
 
   /// \brief Filters value
   /// \param value Input to be filtered.
@@ -60,10 +65,10 @@ class linear_filter {
   std::vector<double> b_;
   /// \brief Output coefficients
   std::vector<double> a_;
-  /// \brief Previous output poses
-  std::deque<T> y_;
-  /// \brief Previous input poses
+  /// \brief Input taps
   std::deque<T> x_;
+  /// \brief Previous output
+  std::deque<T> y_;
 };
 }  // namespace gb::filter
 #endif  // FILTER_FILTER_LINEAR_FILTER_H_
