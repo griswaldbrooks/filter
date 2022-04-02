@@ -38,7 +38,6 @@ to collaboratively troubleshoot issues.
 #### Rebuilding image
 As repository dependencies change, the development image will have to be rebuilt.
 While early on this can happen frequently, dependencies tend to change more slowly later in a project.
-Unless otherwise noted, it is a good habit to update your image once a sprint.
 
 #### <a id="ccache"></a> ccache
 `ccache` allows previous builds to speed up future builds. As the container is
@@ -62,7 +61,7 @@ This allows for a more seamless development environment for
 - building source
 - in container committing with your user
 
-The full set of volume maps can be read in the [compose file](../docker-compose.dev.yml).
+The full set of volume maps can be read in the [compose file](compose.dev.yml).
 
 #### git
 Commits can be done from directly within the container, with the same host user.
