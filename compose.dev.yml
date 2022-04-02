@@ -12,9 +12,6 @@ services:
                       bash"
     container_name: ${USER}-${REPO}-dev
     environment:
-      - DISPLAY=${DISPLAY}
-      - QT_X11_NO_MITSHM=1
-      - ROS_DOMAIN_ID=0
       - TERM=xterm-256color
     extra_hosts:
       - ${REPO}-dev:127.0.0.1
@@ -28,8 +25,6 @@ services:
       - ~/.gitconfig:${HOME}/.gitconfig:ro
       - ${PWD}:${HOME}/ws/src/${REPO}
       - ~/.${REPO}/ccache:${HOME}/.ccache
-      - /tmp/.X11-unix:/tmp/.X11-unix:ro
-      - ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR}:ro
       - /etc/group:/etc/group:ro
       - /etc/passwd:/etc/passwd:ro
       - /etc/shadow:/etc/shadow:ro

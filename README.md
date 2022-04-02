@@ -3,18 +3,25 @@ Package for various filters and estimators.
 
 # Development Container
 Build a new development image
-```
+```shell
 mkdir -p ~/.filter/ccache
 export UIDGID=$(id -u):$(id -g)
 docker compose -f compose.dev.yml build
 ```
 Start an interactive development container
-```
+```shell
 docker compose -f compose.dev.yml run development
 ```
 Build the repository in the container
+```shell
+username@filter-dev:~/ws$ mkdir build && cd build
+username@filter-dev:~/ws/build$ cmake ~/ws/src/filter/
+username@filter-dev:~/ws/build$ cmake --build .
 ```
 
+# Test
+```shell
+username@filter-dev:~/ws/build$ ./filter/filter_tests
 ```
 
 # Description
@@ -38,7 +45,7 @@ Unless otherwise noted, it is a good habit to update your image once a sprint.
 not persistent, we need to map the cache to the host so it can be reused in
 subsequent instantiations of the container.
 On the host, create the cache directory
-```
+```shell
 mkdir -p ~/.filter/ccache
 ```
 This will then be mapped to `/home/username/.ccache` in the container.
@@ -59,7 +66,7 @@ The full set of volume maps can be read in the [compose file](../docker-compose.
 
 #### git
 Commits can be done from directly within the container, with the same host user.
-```
+```shell
 username@filter-dev:~/ws/src$ git config --list
 user.email=firstname.lastname@email.com
 user.name=Firstname Lastname
@@ -173,22 +180,16 @@ to rerun the command using the offset number given from `history`
 !offsetnumber
 ```
 
-# Test
-To test your container
-```shell
-username@filter-dev:~/ws$
-```
-
 # Troubleshooting
 #### ccache cannot compile
-```
+```shell
 "/usr/lib/ccache/cc"
 
   is not able to compile a simple test program.
 ```
 Likely, the host ccache directory in your [home directory](#ccache) was not created properly.
 Ensure that the directory is created and owned by the host user.
-```
+```shell
 mkdir -p ~/.filter/ccache
 sudo chown -R $(id -u):$(id -g) ~/.filter/ccache
 ```
