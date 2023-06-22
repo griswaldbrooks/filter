@@ -1,0 +1,34 @@
+name: CI
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    name: ${{matrix.platform.name}} ${{matrix.type.name}} ${{matrix.config.name}}
+    runs-on: ${{matrix.platform.os}}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+        - { name: Linux,   os: ubuntu-latest }
+        - { name: macOS,   os: macos-latest }
+        type:
+        - { name: Shared, flags: "ON" }
+        - { name: Static, flags: "OFF" }
+        config:
+        - { name: Debug }
+        - { name: Release }
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure
+      run: cmake -B build -DBUILD_SHARED_LIBS=${{matrix.type.flags}} -DCMAKE_BUILD_TYPE=${{matrix.config.name}}
+
+    - name: Build
+      run: cmake --build build --config ${{matrix.config.name}}
+
+    - name: Test
+      run: ctest --test-dir build --output-on-failure --build-config ${{matrix.config.name}}
