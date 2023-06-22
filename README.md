@@ -5,8 +5,7 @@ Package for various filters and estimators.
 Build a new development image
 ```shell
 mkdir -p ~/.filter/ccache
-export UIDGID=$(id -u):$(id -g)
-docker compose -f compose.dev.yml build
+export UID=$(id -u) export GID=$(id -g); docker compose -f compose.dev.yml build
 ```
 Start an interactive development container
 ```shell
@@ -14,14 +13,13 @@ docker compose -f compose.dev.yml run development
 ```
 Build the repository in the container
 ```shell
-username@filter-dev:~/ws$ mkdir build && cd build
-username@filter-dev:~/ws/build$ cmake ~/ws/src/filter/
-username@filter-dev:~/ws/build$ cmake --build .
+username@filter-dev:~/ws$ cmake -S src/filter/ -B build
+username@filter-dev:~/ws$ cmake --build build
 ```
 
 # Test
 ```shell
-username@filter-dev:~/ws/build$ ./filter/filter_tests
+username@filter-dev:~/ws$ ctest --test-dir build
 ```
 
 # Description

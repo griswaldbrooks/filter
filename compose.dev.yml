@@ -4,7 +4,8 @@ services:
   development:
     build:
       args:
-        UIDGID: ${UIDGID}
+        UID: ${UID}
+        GID: ${GID}
         USER: ${USER}
       context: .
       dockerfile: Dockerfile
