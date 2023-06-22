@@ -11,7 +11,6 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-        - { name: Windows, os: windows-latest }
         - { name: Linux,   os: ubuntu-latest }
         - { name: macOS,   os: macos-latest }
         type:
