@@ -1,5 +1,5 @@
-#ifndef FILTER_FILTER_LINEAR_FILTER_H_
-#define FILTER_FILTER_LINEAR_FILTER_H_
+#ifndef FILTER_LINEAR_FILTER_H_
+#define FILTER_LINEAR_FILTER_H_
 
 #include <deque>      // For deque
 #include <numeric>    // For inner_product
@@ -71,4 +71,4 @@ class linear_filter {
   std::deque<T> y_;
 };
 }  // namespace gb::filter
-#endif  // FILTER_FILTER_LINEAR_FILTER_H_
+#endif  // FILTER_LINEAR_FILTER_H_
