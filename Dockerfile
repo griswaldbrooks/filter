@@ -1,28 +1,18 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:20.04 as upstream
+FROM ubuntu:22.04 as upstream
 
 # Prevent the interactive wizards from stopping the build
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Get the basics
 # hadolint ignore=DL3008
-RUN apt-get update -y && apt-get install -y --no-install-recommends \
+RUN --mount=type=cache,target=/var/cache/apt,id=apt \
+  apt-get update -y && apt-get install -q -y --no-install-recommends \
   build-essential        \
   cmake                  \
   lsb-core               \
   wget                   \
   && rm -rf /var/lib/apt/lists/*
-
-# Build gtest and gmock
-# hadolint ignore=DL3008,DL3003
-RUN apt-get update -y && apt-get install -y --no-install-recommends libgtest-dev &&   \
-  cmake /usr/src/googletest/CMakeLists.txt &&                    \
-  ls /usr/src/googletest &&                                      \
-  (cd /usr/src/googletest && make) &&                            \
-  cp -r /usr/src/googletest/googlemock/include/* /usr/include && \
-  cp -r /usr/src/googletest/googletest/include/* /usr/include && \
-  cp -r /usr/src/googletest/lib/* /usr/lib &&                    \
-  rm -rf /var/lib/apt/lists/*
 
 FROM upstream AS development
 
