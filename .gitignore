@@ -6,3 +6,4 @@ Makefile
 CMakeCache.txt
 CMakeFiles/
 filter_tests
+build
